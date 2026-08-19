@@ -11,7 +11,18 @@
   meta.cls.forEach((c) => b.classList.add(c));
   Object.entries(meta.attrs).forEach(([k, v]) => b.setAttribute(k, v));
   let mount = document.querySelector("[data-palulu-mount]");
-  const hasStatic = !!document.querySelector("[data-site-header], main");
+  let hasStatic = !!document.querySelector("[data-site-header], main, .site-header");
+  const STATIC_PAGES = ["home", "shop"];
+  if (hasStatic && !STATIC_PAGES.includes(seg)) {
+    // Puslapis klonuotas nuo statinio (pvz., Home) - isvalome svetima turini
+    document
+      .querySelectorAll("[data-site-header], [data-site-footer], .promo-bar, .site-header, .commerce-footer, main")
+      .forEach((el) => el.remove());
+    ["ss-home", "shop-page", "inner-page", "product-page", "membership-page"].forEach((c) =>
+      b.classList.remove(c)
+    );
+    hasStatic = false;
+  }
   if (!mount && !hasStatic) {
     mount = document.createElement("div");
     mount.setAttribute("data-palulu-mount", "");
