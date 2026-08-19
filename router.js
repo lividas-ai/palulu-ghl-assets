@@ -10,13 +10,21 @@
   const b = document.body;
   meta.cls.forEach((c) => b.classList.add(c));
   Object.entries(meta.attrs).forEach(([k, v]) => b.setAttribute(k, v));
-  const mount = document.querySelector("[data-palulu-mount]");
-  try {
-    const res = await fetch(CDN + "/pages/" + seg + ".html");
-    mount.innerHTML = await res.text();
-  } catch (e) {
-    mount.innerHTML = "<p style='padding:2rem'>Nepavyko uzkrauti turinio.</p>";
-    return;
+  let mount = document.querySelector("[data-palulu-mount]");
+  const hasStatic = !!document.querySelector("[data-site-header], main");
+  if (!mount && !hasStatic) {
+    mount = document.createElement("div");
+    mount.setAttribute("data-palulu-mount", "");
+    document.body.appendChild(mount);
+  }
+  if (mount) {
+    try {
+      const res = await fetch(CDN + "/pages/" + seg + ".html");
+      mount.innerHTML = await res.text();
+    } catch (e) {
+      mount.innerHTML = "<p style='padding:2rem'>Nepavyko uzkrauti turinio.</p>";
+      return;
+    }
   }
   for (const f of ["site-shell.js", "engine.js", meta.js].filter(Boolean)) {
     await new Promise((done) => {
