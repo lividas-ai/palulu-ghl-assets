@@ -1,7 +1,11 @@
 (async () => {
   const CDN = "https://cdn.jsdelivr.net/gh/lividas-ai/palulu-ghl-assets@main";
   const META = {"home":{"cls":["ss-home"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":"home.js"},"shop":{"cls":["shop-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":"shop.js"},"produktas":{"cls":["inner-page","product-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":"product.js"},"services":{"cls":["inner-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":null},"barbers":{"cls":["inner-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":null},"membership":{"cls":["inner-page","membership-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":"membership.js"},"account":{"cls":["inner-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":"account.js"},"visit":{"cls":["inner-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":null},"gift":{"cls":["inner-page"],"attrs":{"data-concept":"nocturne","data-default-theme":"light"},"js":"gift.js"}};
+  const IDS = {"home":"h1WYQ6D1LxPTDTJme0C7","shop":"5ZndT1S3JPyq7s1IxYAD","produktas":"rKrahjFeLfPKpyLxVwUW","services":"AFxz4DFqtdHMxTXG9CMv","barbers":"C9R3TR8uc4j51j2pwjgX","membership":"NLhHN0Dit1ILwETBJqiJ","account":"os6foiEO1aKexm5Kz8EP","gift":"VAsFk43mF5vHzzFki8x1","visit":"Pj2hlyWGPkl9fJx5Dcvi"};
+  const ID2SEG = Object.fromEntries(Object.entries(IDS).map(([s, i]) => [i, s]));
   let seg = location.pathname.replace(/\/+$/, "").split("/").pop() || "home";
+  let isPreview = false;
+  if (ID2SEG[seg]) { isPreview = true; seg = ID2SEG[seg]; }
   if (!META[seg]) seg = "home";
   const meta = META[seg];
   const h = document.documentElement;
@@ -46,5 +50,21 @@
       s.onerror = done;
       document.body.appendChild(s);
     });
+  }
+  if (isPreview) {
+    // Preview rezime vidines nuorodas nukreipiame i atitinkamus preview URL
+    const rewrite = () => {
+      document.querySelectorAll('a[href^="/"]:not([data-pv])').forEach((a) => {
+        const href = a.getAttribute("href");
+        const target = (href.replace(/^\/+/, "").split("?")[0].split("/")[0]) || "home";
+        if (IDS[target]) {
+          const q = href.includes("?") ? "?" + href.split("?")[1] : "";
+          a.setAttribute("href", "/preview/" + IDS[target] + q);
+          a.setAttribute("data-pv", "1");
+        }
+      });
+    };
+    rewrite();
+    new MutationObserver(rewrite).observe(document.body, { childList: true, subtree: true });
   }
 })();
