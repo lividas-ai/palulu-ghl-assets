@@ -68,7 +68,7 @@
     if (item.status === "active") return `<button data-repeat-action="pause" data-index="${index}">${t("Pristabdyti", "Pause")}</button><button data-repeat-action="skip" data-index="${index}">${t("Praleisti kitą", "Skip next")}</button><button data-repeat-action="cadence" data-index="${index}">${t("Keisti dažnį", "Change cadence")}</button><button data-repeat-action="cancel" data-index="${index}">${t("Atšaukti", "Cancel")}</button>`;
     if (item.status === "paused") return `<button data-repeat-action="resume" data-index="${index}">${t("Atnaujinti", "Resume")}</button><button data-repeat-action="cancel" data-index="${index}">${t("Atšaukti", "Cancel")}</button>`;
     if (item.status === "skipped") return `<button data-repeat-action="resume" data-index="${index}">${t("Tęsti grafiką", "Continue schedule")}</button><button data-repeat-action="cadence" data-index="${index}">${t("Keisti dažnį", "Change cadence")}</button><button data-repeat-action="cancel" data-index="${index}">${t("Atšaukti", "Cancel")}</button>`;
-    if (item.status === "cancelled") return `<a class="link-button" href="/product?id=${encodeURIComponent(item.productId || "redone-clay")}">${t("Sukurti naują papildymą", "Start a new replenishment")}</a>`;
+    if (item.status === "cancelled") return `<a class="link-button" href="/produktas?id=${encodeURIComponent(item.productId || "redone-clay")}">${t("Sukurti naują papildymą", "Start a new replenishment")}</a>`;
     return "";
   }
 
@@ -91,7 +91,7 @@
     if (replenishments.length) {
       replenishments.forEach((item, index) => blocks.push(`<article class="account-card"><span class="status-pill">${stateLabel(item.status)}</span><h3>${esc(productName(item))}</h3><p>${t("Kiekis", "Quantity")}: <b>${Number(item.quantity) || 1}</b><br>${t("Dažnis", "Cadence")}: <b>${t(`kas ${item.intervalWeeks} savaites`, `every ${item.intervalWeeks} weeks`)}</b><br>${repeatTiming(item)}<br>${t("Gavimo būdas", "Fulfilment")}: <b>${fulfilment(item)}</b><br>${t("Ciklo suma", "Cycle total")}: <b>${money(Number(item.price) * (Number(item.quantity) || 1))}</b></p><div class="account-actions">${repeatActions(item, index)}</div></article>`));
     } else {
-      blocks.push(`<article class="account-card is-empty"><div><h3>${t("Papildymo dar nėra.", "No replenishment yet.")}</h3><p>${t("Produkto puslapyje pasirink „Kartoti ir sutaupyti“, tada užbaik atsiskaitymą.", "Choose Repeat & Save on a product page, then complete checkout.")}</p><a class="link-button is-primary" href="/product?id=redone-clay">${t("Rinktis produktą", "Choose a product")}</a></div></article>`);
+      blocks.push(`<article class="account-card is-empty"><div><h3>${t("Papildymo dar nėra.", "No replenishment yet.")}</h3><p>${t("Produkto puslapyje pasirink „Kartoti ir sutaupyti“, tada užbaik atsiskaitymą.", "Choose Repeat & Save on a product page, then complete checkout.")}</p><a class="link-button is-primary" href="/produktas?id=redone-clay">${t("Rinktis produktą", "Choose a product")}</a></div></article>`);
     }
     dashboard.innerHTML = blocks.join("");
   }

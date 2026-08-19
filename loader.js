@@ -1,5 +1,5 @@
 (() => {
-  const map = {"/home":"home.js","/shop":"shop.js","/product":"product.js","/membership":"membership.js","/account":"account.js","/gift":"gift.js"};
+  const map = {"/home":"home.js","/shop":"shop.js","/produktas":"product.js","/membership":"membership.js","/account":"account.js","/gift":"gift.js"};
   let seg = location.pathname.replace(/\/+$/, "");
   seg = "/" + (seg.split("/").pop() || "home");
   const file = map[seg];

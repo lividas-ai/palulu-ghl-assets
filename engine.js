@@ -368,7 +368,7 @@
     const p = product(id); if (!p) return;
     const lang = state.locale;
     const panel = $("#detailPanel");
-    const fullPage = concept === "nocturne" ? `<a class="button button-ghost full" href="/product?id=${encodeURIComponent(p.id)}">${tr("fullProduct")} ↗</a>` : "";
+    const fullPage = concept === "nocturne" ? `<a class="button button-ghost full" href="/produktas?id=${encodeURIComponent(p.id)}">${tr("fullProduct")} ↗</a>` : "";
     panel.innerHTML = `${panelHead(tr("quick"), "PALULU EDIT")}<div class="panel-scroll product-detail"><div class="product-shot ${p.shot}"></div><span>${tr("careLabel")}</span><h3>${p[lang]}</h3><b>${money(p.price)}</b><p>${p[`${lang}Copy`]}</p><p class="product-note">${tr("productNote")}</p><button class="button button-primary full" data-detail-add="${p.id}">${tr("add")} · ${money(p.price)}</button><button class="button button-ghost full" data-detail-subscribe="${p.id}" data-interval="6">${tr("repeat")} · ${money(p.price * .9)} · ${tr("every")} 6 ${tr("weeks")}</button>${fullPage}</div>`;
     openPanel(panel);
   }

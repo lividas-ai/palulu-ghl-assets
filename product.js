@@ -50,7 +50,7 @@
   const relatedGrid = document.querySelector("[data-related-products]");
   if (relatedGrid) relatedGrid.innerHTML = related.map((item) => {
     const itemMeta = extras[item.id] || extras["redone-clay"];
-    return `<article class="editorial-card"><small>${itemMeta.kicker.replace("REDONE · ", "")}</small><h3>${item.en}</h3><p data-lt="${item.ltCopy}" data-en="${item.enCopy}">${document.documentElement.lang === "en" ? item.enCopy : item.ltCopy}</p><a class="card-link" href="/product?id=${encodeURIComponent(item.id)}" data-lt="Peržiūrėti ↗" data-en="View product ↗">${document.documentElement.lang === "en" ? "View product ↗" : "Peržiūrėti ↗"}</a></article>`;
+    return `<article class="editorial-card"><small>${itemMeta.kicker.replace("REDONE · ", "")}</small><h3>${item.en}</h3><p data-lt="${item.ltCopy}" data-en="${item.enCopy}">${document.documentElement.lang === "en" ? item.enCopy : item.ltCopy}</p><a class="card-link" href="/produktas?id=${encodeURIComponent(item.id)}" data-lt="Peržiūrėti ↗" data-en="View product ↗">${document.documentElement.lang === "en" ? "View product ↗" : "Peržiūrėti ↗"}</a></article>`;
   }).join("");
 
   const radios = [...document.querySelectorAll('input[name="purchase"]')];

@@ -3,7 +3,7 @@
 
   let seg = location.pathname.replace(/\/+$/, "");
   seg = "/" + (seg.split("/").pop() || "home");
-  const current = seg === "/product" ? "/shop" : seg;
+  const current = seg === "/produktas" ? "/shop" : seg;
   const active = (href) => current === href ? ' aria-current="page"' : "";
 
   const header = `
