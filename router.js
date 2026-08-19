@@ -12,8 +12,6 @@
   h.setAttribute("lang", "lt");
   if (!h.getAttribute("data-theme")) h.setAttribute("data-theme", "light");
   const b = document.body;
-  meta.cls.forEach((c) => b.classList.add(c));
-  Object.entries(meta.attrs).forEach(([k, v]) => b.setAttribute(k, v));
   let mount = document.querySelector("[data-palulu-mount]");
   let hasStatic = !!document.querySelector("[data-site-header], main, .site-header");
   const STATIC_PAGES = ["home", "shop"];
@@ -27,6 +25,8 @@
     );
     hasStatic = false;
   }
+  meta.cls.forEach((c) => b.classList.add(c));
+  Object.entries(meta.attrs).forEach(([k, v]) => b.setAttribute(k, v));
   if (!mount && !hasStatic) {
     mount = document.createElement("div");
     mount.setAttribute("data-palulu-mount", "");
